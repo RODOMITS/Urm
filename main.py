@@ -5,8 +5,8 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
-TelegramToken = "ТВОЙ_ТОКЕН_БОТА"
-AdministratorUsernames = ["rodomits", "второй_админ"]
+TelegramToken = "8809208766:AAGNL7qWsCpAes81t4b8BlFbITkLWlqY-c0"
+AdministratorUsernames = ["rodomits", "weqosik"]
 
 BotInstance = Bot(token=TelegramToken)
 BotDispatcher = Dispatcher(storage=MemoryStorage())
