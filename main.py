@@ -1,9 +1,13 @@
+import logging
 import asyncio
 from aiogram import Bot, Dispatcher, F
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
+
+logging.basicConfig(level=logging.INFO)
 
 TelegramToken = "8809208766:AAGNL7qWsCpAes81t4b8BlFbITkLWlqY-c0"
 AdministratorUsernames = ["rodomits", "weqosik"]
@@ -14,6 +18,19 @@ ActiveAdminSessions = {}
 
 class BotStates(StatesGroup):
     WaitingForAdminResponse = State()
+
+@BotDispatcher.message(CommandStart())
+async def HandleStartCommand(UserMessage: Message):
+    CurrentUser = UserMessage.from_user
+    CurrentUsername = CurrentUser.username.lower() if CurrentUser.username else ""
+
+    if CurrentUsername in [AdminName.lower() for AdminName in AdministratorUsernames]:
+        if CurrentUser.id not in ActiveAdminSessions:
+            ActiveAdminSessions[CurrentUser.username.lower()] = CurrentUser.id
+        await UserMessage.answer("Привет, admin! Ты успешно авторизован. Сюда будут приходить предложения.")
+        return
+
+    await UserMessage.answer("Привет Это предложка. Урн! Пришли свои идеи (ты можешь приложить любые файлы).")
 
 @BotDispatcher.message(F.chat.type == "private")
 async def HandleUserSuggestion(UserMessage: Message):
