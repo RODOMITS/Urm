@@ -30,7 +30,7 @@ async def HandleStartCommand(UserMessage: Message):
         await UserMessage.answer("Привет, admin! Ты успешно авторизован. Сюда будут приходить предложения.")
         return
 
-    await UserMessage.answer("Привет Это предложка. Урн! Пришли свои идеи (ты можешь приложить любые файлы).")
+    await UserMessage.answer("Привет Это предложка КОМ! Пришли свои идеи или предложения (ты можешь приложить любые файлы).")
 
 @BotDispatcher.message(F.chat.type == "private")
 async def HandleUserSuggestion(UserMessage: Message):
